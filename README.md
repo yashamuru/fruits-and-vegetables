@@ -1,5 +1,9 @@
 # 🍎🥕 Fruits and Vegetables
 
+## 🤔 Notes and assumptions
+* I am starting with the domain as I would organize it for a Grocery shop application.
+* Installed https://github.com/webmozarts/assert for nicer assertions
+
 ## 🎯 Goal
 We want to build a service which will take a `request.json` and:
 * Process the file and create two separate collections for `Fruits` and `Vegetables`
@@ -39,7 +43,7 @@ docker build -t tturkowski/fruits-and-vegetables -f docker/Dockerfile .
 
 ### 🏃‍♂️ Running container
 ```bash
-docker run -it -w/app -v$(pwd):/app tturkowski/fruits-and-vegetables sh 
+docker run -it -w/app -v$(pwd):/app tturkowski/fruits-and-vegetables sh
 ```
 
 ### 🛂 Running tests
