@@ -9,6 +9,11 @@ class Quantity
     public const UNIT_GRAMS = 'g';
     public const UNIT_KILOGRAMS = 'kg';
 
+    public const VALID_UNITS = [
+        self::UNIT_GRAMS,
+        self::UNIT_KILOGRAMS,
+    ];
+
     private const MULTIPLIERS = [
         self::UNIT_GRAMS => 1,
         self::UNIT_KILOGRAMS => 1000,
@@ -50,6 +55,6 @@ class Quantity
 
     private function validateUnit(string $unit): void
     {
-        Assert::notEmpty(self::MULTIPLIERS[$unit] ?? null, 'Invalid unit: '.$unit);
+        Assert::oneOf($unit, self::VALID_UNITS, 'Invalid unit: '.$unit);
     }
 }
