@@ -28,7 +28,16 @@ class QuantityTest extends TestCase
             [3500, new Quantity(5, Quantity::UNIT_KILOGRAMS), new Quantity(1.5, Quantity::UNIT_KILOGRAMS)],
             [12, new Quantity(15, Quantity::UNIT_GRAMS), new Quantity(3, Quantity::UNIT_GRAMS)],
             [150, new Quantity(2, Quantity::UNIT_KILOGRAMS), new Quantity(1850, Quantity::UNIT_GRAMS)],
+            [0, new Quantity(2, Quantity::UNIT_KILOGRAMS), new Quantity(2000, Quantity::UNIT_GRAMS)],
         ];
+    }
+
+    public function testSubtractValidatesQuantity(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $q1 = new Quantity(1, Quantity::UNIT_KILOGRAMS);
+        $q2 = new Quantity(1001, Quantity::UNIT_GRAMS);
+        $q1->subtract($q2);
     }
 
     /**

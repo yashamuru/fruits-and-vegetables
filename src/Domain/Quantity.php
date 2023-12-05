@@ -44,6 +44,7 @@ class Quantity
     public function subtract(self $quantity): self
     {
         $diff = $this->getValue(self::UNIT_GRAMS) - $quantity->getValue(self::UNIT_GRAMS);
+        Assert::greaterThanEq($diff, 0, 'Not enough quantity in stock');
         return new self($diff, self::UNIT_GRAMS);
     }
 
