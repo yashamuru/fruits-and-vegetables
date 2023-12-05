@@ -11,7 +11,7 @@ class ProduceCollection
 
     public function add(Produce $produce): self {
         $id = $produce->getId();
-        $existing = $this->items[$id] ?? null;
+        $existing = $this->getById($id) ?? null;
         if (empty($existing)) {
             $this->items[$id] = $produce;
         } else {
@@ -21,20 +21,37 @@ class ProduceCollection
     }
 
     public function remove(int $id): self {
-        Assert::keyExists($this->items, $id, 'Item not found');
+        Assert::notEmpty($this->getById($id), 'Item not found');
         unset($this->items[$id]);
         return $this;
     }
 
     public function subtract(int $id, Produce $produce): self {
-        Assert::keyExists($this->items, $id, 'Item not found');
-        $existing = $this->items[$id];
+        $existing = $this->getById($id);
+        Assert::notEmpty($existing, 'Item not found');
         $newQuantity = $existing->getQuantity()->subtract($produce->getQuantity());
         $existing->setQuantity($newQuantity);
         return $this;
     }
 
+    public function getById(int $id): ?Produce {
+        return $this->items[$id] ?? null;
+    }
+
+    /**
+     * @return Produce[]
+     */
     public function list(): array {
-        return $this->items;
+        return array_values($this->items);
+    }
+
+    /**
+     * @return Produce[]
+     */
+    public function search(string $nameFilter) : array {
+        $search = mb_strtolower($nameFilter);
+        return array_filter($this->items, function($item) use ($search) {
+            return strpos(mb_strtolower($item->getName()), $search) !== false;
+        });
     }
 }

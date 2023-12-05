@@ -43,7 +43,7 @@ class ProduceCollectionTest extends TestCase
         $produceCollection = $this->getCollection();
 
         $produceCollection->remove(2);
-        $this->assertEmpty($produceCollection->list()[2] ?? null, "Removed item is not in collection");
+        $this->assertEmpty($produceCollection->getById(2), "Removed item is not in collection");
         $this->assertCount(2, $produceCollection->list(), "Collection has now 2 items");
     }
 
@@ -69,7 +69,21 @@ class ProduceCollectionTest extends TestCase
         $produceCollection->subtract(4, new Produce(4, 'Cucumber', Produce::TYPE_VEGETABLE, new Quantity(3, Quantity::UNIT_KILOGRAMS)));
     }
 
-    public function getCollection(): ProduceCollection
+    public function testList(): void
+    {
+        $produceCollection = $this->getCollection();
+        $this->assertCount(3, $produceCollection->list(), "Collection has 3 items");
+    }
+
+    public function testSearch(): void
+    {
+        $produceCollection = $this->getCollection();
+        $this->assertCount(2, $produceCollection->search('Apple'), "2 items matching 'apple'");
+        $this->assertCount(1, $produceCollection->search('pear'), "1 items matching 'pear'");
+        $this->assertCount(0, $produceCollection->search('banana'), "No items matching 'banana'");
+    }
+
+    private function getCollection(): ProduceCollection
     {
         $produceCollection = new ProduceCollection();
 
@@ -86,11 +100,9 @@ class ProduceCollectionTest extends TestCase
     private function assertProduceItem(ProduceCollection $collection, Produce $expected, string $prefix)
     {
         $id = $expected->getId();
+        $produce = $collection->getById($id);
 
-        $list = $collection->list();
-        $this->assertNotEmpty($list[$expected->getId()], $prefix."exists in collection");
-        $produce = $list[$expected->getId()];
-
+        $this->assertNotEmpty($produce, $prefix."exists in collection");
         $this->assertEquals($expected->getId(),   $produce->getId(),   $prefix.'matches on ID');
         $this->assertEquals($expected->getName(), $produce->getName(), $prefix.'matches on Name');
         $this->assertEquals($expected->getType(), $produce->getType(), $prefix.'matches on Type');
