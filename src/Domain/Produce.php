@@ -13,7 +13,7 @@ class Produce
         private int $id,
         private string $name,
         private string $type,
-        Quantity $quantity
+        private Quantity $quantity
     ) {
         Assert::oneOf($type, [self::TYPE_FRUIT, self::TYPE_VEGETABLE], "Invalid type: $type");
     }
@@ -21,5 +21,26 @@ class Produce
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function getName(): string
+    {
+        return ucfirst($this->name);
+    }
+
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    public function getQuantity(): Quantity
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity(Quantity $quantity): self
+    {
+        $this->quantity = $quantity;
+        return $this;
     }
 }
