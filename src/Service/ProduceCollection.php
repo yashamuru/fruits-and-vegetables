@@ -15,8 +15,7 @@ class ProduceCollection
         if (empty($existing)) {
             $this->items[$id] = $produce;
         } else {
-            $newQuantity = $existing->getQuantity()->add($produce->getQuantity());
-            $this->items[$id]->setQuantity($newQuantity);
+            $existing->getQuantity()->add($produce->getQuantity());
         }
         return $this;
     }
@@ -24,6 +23,14 @@ class ProduceCollection
     public function remove(int $id): self {
         Assert::keyExists($this->items, $id, 'Item not found');
         unset($this->items[$id]);
+        return $this;
+    }
+
+    public function subtract(int $id, Produce $produce): self {
+        Assert::keyExists($this->items, $id, 'Item not found');
+        $existing = $this->items[$id];
+        $newQuantity = $existing->getQuantity()->subtract($produce->getQuantity());
+        $existing->setQuantity($newQuantity);
         return $this;
     }
 

@@ -37,8 +37,8 @@ class Quantity
 
     public function add(self $quantity): self
     {
-        $diff = $this->getValue(self::UNIT_GRAMS) + $quantity->getValue(self::UNIT_GRAMS);
-        return new self($diff, self::UNIT_GRAMS);
+        $this->value = $this->getValue(self::UNIT_GRAMS) + $quantity->getValue(self::UNIT_GRAMS);
+        return $this;
     }
 
     public function subtract(self $quantity): self

@@ -54,6 +54,21 @@ class ProduceCollectionTest extends TestCase
         $produceCollection->remove(4);
     }
 
+    public function testSubtract(): void
+    {
+        $produceCollection = $this->getCollection();
+
+        $produceCollection->subtract(3, new Produce(3, 'pineapple', Produce::TYPE_FRUIT, new Quantity(700, Quantity::UNIT_GRAMS)));
+        $this->assertProduceItem($produceCollection, new Produce(3, 'pineapple', Produce::TYPE_FRUIT, new Quantity(8, Quantity::UNIT_KILOGRAMS)), "Subtract from existing item");
+    }
+
+    public function testSubtractValidatesForExistingItem(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $produceCollection = $this->getCollection();
+        $produceCollection->subtract(4, new Produce(4, 'Cucumber', Produce::TYPE_VEGETABLE, new Quantity(3, Quantity::UNIT_KILOGRAMS)));
+    }
+
     public function getCollection(): ProduceCollection
     {
         $produceCollection = new ProduceCollection();
