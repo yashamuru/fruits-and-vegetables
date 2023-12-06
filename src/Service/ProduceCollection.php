@@ -48,7 +48,10 @@ class ProduceCollection
     /**
      * @return Produce[]
      */
-    public function search(string $nameFilter) : array {
+    public function search(string $nameFilter = null) : array {
+        if (empty($nameFilter)) {
+            return $this->list();
+        }
         $search = mb_strtolower($nameFilter);
         return array_filter($this->items, function($item) use ($search) {
             return strpos(mb_strtolower($item->getName()), $search) !== false;

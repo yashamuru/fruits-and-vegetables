@@ -8,6 +8,10 @@ class Produce
 {
     public const TYPE_FRUIT = 'fruit';
     public const TYPE_VEGETABLE = 'vegetable';
+    public const VALID_TYPES = [
+        self::TYPE_FRUIT,
+        self::TYPE_VEGETABLE,
+    ];
 
     public function __construct(
         private int $id,
@@ -15,7 +19,7 @@ class Produce
         private string $type,
         private Quantity $quantity
     ) {
-        Assert::oneOf($type, [self::TYPE_FRUIT, self::TYPE_VEGETABLE], "Invalid type: $type");
+        Assert::oneOf($type, self::VALID_TYPES, "Invalid type: $type");
     }
 
     public function getId(): int

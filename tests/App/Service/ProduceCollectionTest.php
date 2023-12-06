@@ -75,12 +75,23 @@ class ProduceCollectionTest extends TestCase
         $this->assertCount(3, $produceCollection->list(), "Collection has 3 items");
     }
 
-    public function testSearch(): void
+    /**
+     * @dataProvider getSearchData
+     */
+    public function testSearch(int $expected, ?string $term, string $message): void
     {
         $produceCollection = $this->getCollection();
-        $this->assertCount(2, $produceCollection->search('Apple'), "2 items matching 'apple'");
-        $this->assertCount(1, $produceCollection->search('pear'), "1 items matching 'pear'");
-        $this->assertCount(0, $produceCollection->search('banana'), "No items matching 'banana'");
+        $this->assertCount($expected, $produceCollection->search($term), $message);
+    }
+
+    public static function getSearchData(): array
+    {
+        return [
+            [2, 'Apple', "2 items matching 'Apple'"],
+            [1, 'PEAR', "1 items matching 'pear'"],
+            [0, 'banana', "No items matching 'banana'"],
+            [3, null, "All items"],
+        ];
     }
 
     private function getCollection(): ProduceCollection
