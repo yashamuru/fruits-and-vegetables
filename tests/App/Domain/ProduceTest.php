@@ -8,8 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class ProduceTest extends TestCase
 {
-    public function testNewObject(): void
-    {
+    public function testNewObject(): void {
         $q = new Quantity(1234,  Quantity::UNIT_GRAMS);
         $produce = new Produce(1, 'Apple', Produce::TYPE_FRUIT, $q);
 
@@ -19,15 +18,13 @@ class ProduceTest extends TestCase
     /**
      * @dataProvider getInvalidTypes
      */
-    public function testItValidatesTheType(string $invalidType): void
-    {
+    public function testItValidatesTheType(string $invalidType): void {
         $this->expectException(\InvalidArgumentException::class);
         $q = new Quantity(1234,  Quantity::UNIT_GRAMS);
         new Produce(1, 'Apple', $invalidType, $q);
     }
 
-    public function getInvalidTypes(): array
-    {
+    public function getInvalidTypes(): array {
         return [
             [''],
             ['Invalid'],

@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class StorageServiceTest extends TestCase
 {
-    public function testReceivingRequest(): void
-    {
+    public function testReceivingRequest(): void {
         $request = file_get_contents('request.json');
 
         $storageService = new StorageService($request);
@@ -17,8 +16,7 @@ class StorageServiceTest extends TestCase
         $this->assertIsString($storageService->getRequest());
     }
 
-    public function testList(): void
-    {
+    public function testList(): void {
         $request = file_get_contents('tests/fixtures/basicRequest.json');
         $storageService = new StorageService($request);
 
@@ -29,8 +27,7 @@ class StorageServiceTest extends TestCase
         $this->assertEquals($responseKg,    $storageService->list('kg'), "Formats list for kilograms");
     }
 
-    public function testSearch(): void
-    {
+    public function testSearch(): void {
         $request = file_get_contents('tests/fixtures/basicRequest.json');
         $storageService = new StorageService($request);
 
@@ -41,8 +38,7 @@ class StorageServiceTest extends TestCase
         $this->assertEquals($responseKg,    $storageService->search("Melon", 'kg'), "Formats search for kilograms");
     }
 
-    public function testRemove(): void
-    {
+    public function testRemove(): void {
         $request = file_get_contents('tests/fixtures/basicRequest.json');
 
         $storageService = new StorageService($request);
@@ -53,8 +49,7 @@ class StorageServiceTest extends TestCase
         $this->assertEquals($expectedResponse,    $storageService->list('kg'), "Removed response");
     }
 
-    public function testAdd(): void
-    {
+    public function testAdd(): void {
         $request = file_get_contents('tests/fixtures/basicRequest.json');
 
         $storageService = new StorageService($request);

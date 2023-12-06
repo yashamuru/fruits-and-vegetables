@@ -12,14 +12,12 @@ class ProduceFormatterTest extends TestCase
     /**
      * @dataProvider getTestFormat
      */
-    public function testFormat(array $expected, string $unit, Produce $produce, string $message): void
-    {
+    public function testFormat(array $expected, string $unit, Produce $produce, string $message): void {
         $formatter = new ProduceFormatter($unit);
         $this->assertEquals($expected, $formatter->format($produce), $message);
     }
 
-    public static function getTestFormat(): array
-    {
+    public static function getTestFormat(): array {
         $produce = new Produce(1, 'Apple', Produce::TYPE_FRUIT, new Quantity(1234, Quantity::UNIT_GRAMS));
 
         return [
@@ -50,8 +48,7 @@ class ProduceFormatterTest extends TestCase
         ];
     }
 
-    public function testValidatesUnit(): void
-    {
+    public function testValidatesUnit(): void {
         $this->expectException(\InvalidArgumentException::class);
         $formatter = new ProduceFormatter('Invalid');
     }

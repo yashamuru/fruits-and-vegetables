@@ -13,8 +13,7 @@ class StorageService
 
     public function __construct(
         string $request
-    )
-    {
+    ) {
         $this->request = $request;
         foreach(Produce::VALID_TYPES as $type) {
             $this->collections[$type] = new ProduceCollection();
@@ -31,13 +30,11 @@ class StorageService
         }
     }
 
-    public function getRequest(): string
-    {
+    public function getRequest(): string {
         return $this->request;
     }
 
-    public function add(array $item): void
-    {
+    public function add(array $item): void {
         $produce = new Produce(
             $item['id'],
             $item['name'],
@@ -47,20 +44,17 @@ class StorageService
         $this->collections[$produce->getType()]->add($produce);
     }
 
-    public function remove(int $id): void
-    {
+    public function remove(int $id): void {
         foreach($this->collections as $collection) {
             $collection->remove($id);
         }
     }
 
-    public function list(string $unit): array
-    {
+    public function list(string $unit): array {
         return $this->search(null, $unit);
     }
 
-    public function search(string $searchString = null, string $unit = Quantity::UNIT_GRAMS): array
-    {
+    public function search(string $searchString = null, string $unit = Quantity::UNIT_GRAMS): array {
         $collections = $this->collections;
         $response = [];
         foreach ($collections as $collection) {
@@ -73,8 +67,7 @@ class StorageService
         return array_map(array($formatter, 'format'), $orderedList);
     }
 
-    private function sort(array $list): array
-    {
+    private function sort(array $list): array {
         usort($list, function($a, $b) {
             return $a->getId() <=> $b->getId();
         });
