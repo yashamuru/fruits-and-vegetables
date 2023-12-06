@@ -1,0 +1,23 @@
+[
+  {
+    "id": 2,
+    "name": "Apples",
+    "type": "fruit",
+    "quantity": 20,
+    "unit": "kg"
+  },
+  {
+    "id": 4,
+    "name": "Melons",
+    "type": "fruit",
+    "quantity": 120,
+    "unit": "kg"
+  },
+  {
+    "id": 5,
+    "name": "Beans",
+    "type": "vegetable",
+    "quantity": 65,
+    "unit": "kg"
+  }
+]

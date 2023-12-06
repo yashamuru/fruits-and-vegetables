@@ -3,6 +3,7 @@
 ## 🤔 Notes and assumptions
 * I am starting with the domain as I would organize it for a Grocery shop application.
 * Installed https://github.com/webmozarts/assert for nicer assertions
+* I focused on some initial design and then tried to do some TDD, continiously refactoring the tests and sometimes - the code itself.
 
 ## 🎯 Goal
 We want to build a service which will take a `request.json` and:

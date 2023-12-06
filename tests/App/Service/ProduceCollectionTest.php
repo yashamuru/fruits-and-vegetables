@@ -47,11 +47,11 @@ class ProduceCollectionTest extends TestCase
         $this->assertCount(2, $produceCollection->list(), "Collection has now 2 items");
     }
 
-    public function testRemoveValidatesForExistingItem(): void
+    public function testRemoveDoesNothingForNonExistingItem(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
         $produceCollection = $this->getCollection();
         $produceCollection->remove(4);
+        $this->assertCount(3, $produceCollection->list(), "Collection has still 3 items");
     }
 
     public function testSubtract(): void

@@ -36,14 +36,22 @@ class StorageService
         return $this->request;
     }
 
-    public function add(): array
+    public function add(array $item): void
     {
-        return [];
+        $produce = new Produce(
+            $item['id'],
+            $item['name'],
+            $item['type'],
+            new Quantity($item['quantity'], $item['unit'])
+        );
+        $this->collections[$produce->getType()]->add($produce);
     }
 
-    public function remove(): array
+    public function remove(int $id): void
     {
-        return [];
+        foreach($this->collections as $collection) {
+            $collection->remove($id);
+        }
     }
 
     public function list(string $unit): array

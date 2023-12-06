@@ -21,8 +21,9 @@ class ProduceCollection
     }
 
     public function remove(int $id): self {
-        Assert::notEmpty($this->getById($id), 'Item not found');
-        unset($this->items[$id]);
+        if (! empty($this->getById($id))) {
+            unset($this->items[$id]);
+        }
         return $this;
     }
 
